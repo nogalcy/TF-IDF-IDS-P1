@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import matplotlib.pyplot as plt
+import os
 
 book_names = ["Frankenstein.txt", "Odyssey.txt", "Romeo_and_Juliet.txt"]
 
@@ -18,8 +19,10 @@ stop_words = {"the", "it", "this", "or", "so", "me", "person", "than", "back", "
 
 words_set = set()
 
+main_dir = "main/"
+
 for doc in book_names:
-    with open(doc, "r") as file:
+    with open(os.path.join(main_dir, doc), "r") as file:
         data = file.read()
     file.close()
 
@@ -45,7 +48,7 @@ for i in range(len(corpus)):
     total_words = len(words)
     for word in words:
         if word in words_set:
-            df_tf.loc[i][word] += words.count(word) / total_words
+            df_tf.loc[i, word] += words.count(word) / total_words
 
 idf_dict = {}
 
